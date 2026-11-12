@@ -1,0 +1,54 @@
+---
+import { ArrowDownToLine, Menu, X } from '@lucide/astro';
+import { profile } from '../data/portfolio';
+---
+
+<header class="site-header" data-site-header>
+  <a class="skip-link" href="#home">Skip to content</a>
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
+    <a class="brand" href="#home" aria-label="Amith HB, home">
+      <span class="brand-mark">A<span>.</span></span>
+      <span class="brand-name">AMITH HB <small>DATA ENGINEER</small></span>
+    </a>
+    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
+      <Menu class="menu-icon" size={21} stroke-width={1.8} />
+      <X class="close-icon" size={21} stroke-width={1.8} />
+    </button>
+    <nav class="primary-navigation" id="primary-navigation" aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="resume-nav" href={profile.resume} download="Amith_HB.pdf">
+      <span>Resume</span><ArrowDownToLine size={15} stroke-width={1.8} />
+    </a>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const menuButton = header?.querySelector<HTMLButtonElement>('.mobile-menu-button');
+  const nav = header?.querySelector<HTMLElement>('.primary-navigation');
+
+  const setMenuOpen = (open: boolean) => {
+    menuButton?.setAttribute('aria-expanded', String(open));
+    menuButton?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    header?.classList.toggle('menu-open', open);
+  };
+
+  menuButton?.addEventListener('click', () => {
+    setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true');
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenuOpen(false)));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenuOpen(false);
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setMenuOpen(false);
+  });
+</script>

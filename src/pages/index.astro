@@ -1,0 +1,193 @@
+---
+import { Image } from 'astro:assets';
+import {
+  ArrowDown,
+  ArrowDownToLine,
+  ArrowRight,
+  ArrowUpRight,
+  Award,
+  BriefcaseBusiness,
+  Check,
+  Cloud,
+  CodeXml,
+  Database,
+  ExternalLink,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Radio,
+  ShieldCheck,
+  Workflow,
+} from '@lucide/astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import profileImage from '../assets/amith-hb.jpg';
+import azureCertificate from '../assets/certifications/azure-fundamentals.png';
+import foundationsCertificate from '../assets/certifications/data-engineering-foundations.png';
+import ritLogo from '../assets/rit-logo.png';
+import { certifications, education, experience, profile, projects, skillGroups } from '../data/portfolio';
+
+const coreSkills = ['Python', 'SQL', 'PySpark', 'Azure', 'GCP', 'BigQuery'];
+const skillIcons = [CodeXml, Cloud, Database, Radio, Workflow, ArrowUpRight];
+const iconForSkill = (index: number) => skillIcons[index] ?? CodeXml;
+---
+
+<BaseLayout>
+  <SiteHeader />
+  <main id="home">
+    <section class="hero-section" aria-labelledby="hero-title">
+      <div class="hero-glow hero-glow-one"></div><div class="hero-glow hero-glow-two"></div>
+      <div class="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 pb-24 pt-14 sm:px-8 md:grid-cols-[1.2fr_0.8fr] md:pb-28 md:pt-20 lg:px-10 lg:pt-24">
+        <div class="hero-copy reveal-on-scroll">
+          <p class="eyebrow"><span class="live-dot"></span> DATA ENGINEER <span class="eyebrow-divider"></span> BENGALURU, INDIA</p>
+          <h1 id="hero-title">Building scalable data platforms <span class="accent-text">&amp; intelligent pipelines.</span></h1>
+          <p class="hero-summary">I’m a Data Engineer with 4+ years of experience building reliable data solutions across Azure and Google Cloud Platform.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">View my work <ArrowRight size={17} /></a>
+            <a class="button button-quiet" href={profile.resume} download="Amith_HB.pdf"><ArrowDownToLine size={16} /> Download resume</a>
+            <a class="button button-link" href="#contact">Let’s connect <ArrowUpRight size={16} /></a>
+          </div>
+          <div class="hero-skill-row" aria-label="Core technologies">
+            {coreSkills.map((skill) => <span>{skill}</span>)}
+          </div>
+        </div>
+        <div class="hero-visual reveal-on-scroll" aria-label="Portrait and data pipeline illustration">
+          <div class="visual-grid"></div>
+          <div class="visual-orbit orbit-a"></div><div class="visual-orbit orbit-b"></div>
+          <div class="pipeline-chip chip-source"><span class="chip-dot"></span><span>SOURCES</span><b>SFTP · SQL · GCS</b></div>
+          <div class="pipeline-chip chip-process"><span class="chip-dot"></span><span>PROCESS</span><b>SPARK · PYTHON</b></div>
+          <div class="pipeline-chip chip-warehouse"><span class="chip-dot"></span><span>WAREHOUSE</span><b>BIGQUERY</b></div>
+          <div class="portrait-frame"><Image src={profileImage} alt="Portrait of Amith HB" class="profile-photo" widths={[220, 320, 440]} sizes="(max-width: 640px) 62vw, 320px" loading="eager" fetchpriority="high" /></div>
+          <div class="visual-caption"><span class="caption-mark">AH</span><span>ENGINEERING<br />DATA IN MOTION</span></div>
+          <div class="visual-coordinate">12°58′ N<br />77°35′ E</div>
+        </div>
+      </div>
+      <a class="hero-scroll" href="#about"><span></span> SCROLL TO EXPLORE <ArrowDown size={13} /></a>
+    </section>
+
+    <section class="about-section section-pad" id="about" aria-labelledby="about-title">
+      <div class="mx-auto grid w-full max-w-7xl gap-9 px-5 sm:px-8 md:grid-cols-[0.75fr_1.25fr] lg:px-10">
+        <div class="section-label"><span>01</span><i></i> ABOUT ME</div>
+        <div class="about-content reveal-on-scroll">
+          <h2 id="about-title">Reliable data is<br /><span class="muted-heading">built with intent.</span></h2>
+          <div class="about-columns">
+            <p>I specialize in cloud data engineering, distributed processing, and scalable ETL/ELT pipelines. I enjoy turning fragmented sources into dependable data products that teams can trust and use.</p>
+            <p>Across Azure and Google Cloud, I’ve worked on ingestion, transformation, orchestration, data warehousing, validation, and pipeline optimization—connecting engineering quality to measurable business outcomes.</p>
+          </div>
+          <div class="about-facts">
+            <div><strong>4<span>+</span></strong><small>YEARS IN DATA ENGINEERING</small></div>
+            <div><strong>2</strong><small>CLOUD ECOSYSTEMS</small></div>
+            <div><strong class="fact-label">BATCH<br />STREAM</strong><small>DATA DELIVERY MODES</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience-section section-pad" id="experience" aria-labelledby="experience-title">
+      <div class="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div class="section-heading reveal-on-scroll"><div><div class="section-label"><span>02</span><i></i> CAREER PATH</div><h2 id="experience-title">Experience<span class="accent-dot">.</span></h2></div><p>Cloud data platforms, enterprise systems, and engineering with impact.</p></div>
+        <div class="experience-list">
+          {experience.map((role, index) => (
+            <article class:list={['experience-card', 'reveal-on-scroll', { 'is-current': role.current }]}>
+              <div class="experience-rail"><span class="rail-dot"></span><span class="rail-date">{role.period}</span></div>
+              <div class="experience-body">
+                <div class="experience-topline"><div><p class="experience-dates">{role.dates}</p><h3>{role.role}</h3><p class="experience-company">{role.company}</p></div><span class="experience-index">0{index + 1}</span></div>
+                <div class="project-context"><BriefcaseBusiness size={15} /><span>PROJECT</span><strong>{role.project}</strong></div>
+                <p class="experience-summary">{role.summary}</p>
+                <ul class="achievement-list">{role.highlights.map((item) => <li><Check size={15} /><span>{item}</span></li>)}</ul>
+                <div class="tag-row">{role.stack.map((item) => <span>{item}</span>)}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="skills-section section-pad" id="skills" aria-labelledby="skills-title">
+      <div class="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div class="section-heading reveal-on-scroll"><div><div class="section-label"><span>03</span><i></i> TECHNICAL RANGE</div><h2 id="skills-title">The toolkit<span class="accent-dot">.</span></h2></div><p>Technologies I use to build, operate, and evolve data systems.</p></div>
+        <div class="skill-grid">
+          {skillGroups.map((group, index) => {
+            const SkillIcon = iconForSkill(index);
+            return <article class="skill-card reveal-on-scroll"><div class="skill-card-header"><span>{group.number} / 06</span><SkillIcon size={19} stroke-width={1.7} /></div><h3>{group.title}</h3><p>{group.summary}</p><div class="skill-chip-list">{group.skills.map((skill) => <span>{skill}</span>)}</div></article>;
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-section section-pad" id="projects" aria-labelledby="projects-title">
+      <div class="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div class="section-heading reveal-on-scroll"><div><div class="section-label"><span>04</span><i></i> SELECTED WORK</div><h2 id="projects-title">Projects<span class="accent-dot">.</span></h2></div><p>Personal builds and enterprise work. Private company code stays private.</p></div>
+        <div class="project-grid">
+          {projects.map((project) => (
+            <article class="project-card reveal-on-scroll">
+              <div class="project-card-top"><span class="project-number">{project.number}</span><span class="project-category">{project.category}</span></div>
+              <div class="project-art" aria-hidden="true"><div class="project-art-grid"></div><span class="project-art-symbol">{project.number === '01' ? 'BQ' : project.number === '02' ? 'AZ' : project.number === '03' ? 'Q/' : 'M/'}</span><span class="project-art-line"></span><Database size={19} /></div>
+              <div class="project-card-body"><p class="project-type">{project.type}</p><h3>{project.title}</h3><p class="project-summary">{project.summary}</p>
+                {project.details.length > 0 && <ul class="project-details">{project.details.map((detail) => <li>{detail}</li>)}</ul>}
+                {project.stack.length > 0 && <div class="tag-row">{project.stack.map((item) => <span>{item}</span>)}</div>}
+                <div class="project-links">
+                  {project.href && <a href={project.href} target="_blank" rel="noopener noreferrer">{project.hrefLabel}<ExternalLink size={14} /></a>}
+                  {project.secondaryHref && <a href={project.secondaryHref} target="_blank" rel="noopener noreferrer">{project.secondaryLabel}<ExternalLink size={14} /></a>}
+                  {!project.href && !project.secondaryHref && <span class="project-private"><ShieldCheck size={14} /> Details shared by title only</span>}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="credentials-section section-pad" id="certifications" aria-labelledby="credentials-title">
+      <div class="mx-auto grid w-full max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
+        <div class="certifications-block">
+          <div class="section-label"><span>05</span><i></i> CONTINUOUS LEARNING</div><h2 id="credentials-title">Certifications<span class="accent-dot">.</span></h2>
+          <div class="certification-list">
+            {certifications.map((cert, index) => (
+              <article class="certification-card reveal-on-scroll">
+                <div class="certification-icon"><Award size={19} stroke-width={1.6} /></div>
+                <div class="certification-info"><p>{cert.issuer}{cert.year && ` · ${cert.year}`}</p><h3>{cert.title}</h3><span>{cert.credential}</span></div>
+                {index === 0 && <a class="certification-preview" href={cert.image} target="_blank" rel="noopener noreferrer" aria-label={`View ${cert.title} certificate`}><Image src={azureCertificate} alt={cert.alt} widths={[220, 360]} sizes="(max-width: 640px) 35vw, 220px" /></a>}
+                {index === 2 && <a class="certification-preview" href={cert.image} target="_blank" rel="noopener noreferrer" aria-label={`View ${cert.title} certificate`}><Image src={foundationsCertificate} alt={cert.alt} widths={[220, 360]} sizes="(max-width: 640px) 35vw, 220px" /></a>}
+              </article>
+            ))}
+          </div>
+        </div>
+        <div class="education-block reveal-on-scroll" id="education">
+          <div class="section-label"><span>06</span><i></i> EDUCATION</div><h2>Foundations<span class="accent-dot">.</span></h2>
+          <article class="education-card"><div class="education-emblem"><Image src={ritLogo} alt="Ramaiah Institute of Technology emblem" widths={[80, 120]} sizes="80px" /></div><div><p class="education-label">ENGINEERING</p><h3>{education.degree}</h3><p class="education-school">{education.institution}</p><span class="education-location"><MapPin size={13} /> {education.location}</span></div></article>
+          <div class="education-note"><GraduationCap size={18} /><p>Computer science foundations behind a career in data systems.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section section-pad" id="contact" aria-labelledby="contact-title">
+      <div class="contact-glow"></div>
+      <div class="mx-auto grid w-full max-w-7xl gap-12 px-5 sm:px-8 md:grid-cols-[1.15fr_0.85fr] lg:px-10">
+        <div class="contact-copy reveal-on-scroll"><div class="section-label"><span>07</span><i></i> LET’S CONNECT</div><h2 id="contact-title">Let’s make data<br /><span>work harder.</span></h2><p>Open to conversations about data engineering, cloud platforms, and thoughtful ways to solve data problems.</p><a class="button button-primary contact-email" href={`mailto:${profile.email}`}><Mail size={17} /> {profile.email} <ArrowUpRight size={16} /></a></div>
+        <div class="contact-panel reveal-on-scroll"><div class="contact-panel-heading"><span>FIND ME HERE</span><ArrowUpRight size={16} /></div><a href={profile.linkedin} target="_blank" rel="noopener noreferrer"><span class="contact-icon social-monogram" aria-hidden="true">in</span><span><small>LINKEDIN</small><strong>Professional profile</strong></span><ArrowUpRight size={16} /></a><a href={profile.github} target="_blank" rel="noopener noreferrer"><span class="contact-icon social-monogram" aria-hidden="true">GH</span><span><small>GITHUB</small><strong>Code &amp; projects</strong></span><ArrowUpRight size={16} /></a><div class="contact-location"><MapPin size={16} /><span>{profile.location}</span></div></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-4 px-5 py-7 sm:flex-row sm:items-center sm:px-8 lg:px-10"><a class="footer-brand" href="#home">AMITH HB<span>.</span></a><p>© {new Date().getFullYear()} Amith HB · Built for the data-curious.</p><a class="footer-top" href="#home">BACK TO TOP <ArrowUpRight size={13} /></a></div></footer>
+
+  <script>
+    document.documentElement.classList.add('js-enabled');
+    const revealItems = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((element) => revealObserver.observe(element));
+    } else {
+      revealItems.forEach((element) => element.classList.add('is-visible'));
+    }
+  </script>
+</BaseLayout>
